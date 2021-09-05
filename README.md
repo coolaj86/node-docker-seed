@@ -19,10 +19,41 @@ This is a sample node app with just a few endpoints for demonstration.
 
 ```txt
 GET /
+
 GET /hello
+
+GET /envs
+
+GET /oidc/config
+Auhorization: Bearer <token>
+
+GET /oidc/inspect
+Auhorization: Bearer <token>
+
+GET /oidc/profile
+Auhorization: Bearer <token>
+
 GET /errors/400
+
 GET /errors/500
 ```
+
+## Example
+
+```bash
+MY_TOKEN=eyJraWQiOiJEa1lUbmhTdkd5OEJkbk9yMVdYTENhbVFRTUZiNTlYbHdBWVR2bVg5ekxNIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmRNcmJJc1paTWtMR0FyN1gwRVNKdmdsX19JOFF4N0pwQlhrVjV6ZGt5bk0iLCJpc3MiOiJodHRwczovL2xvZ2luLndyaXRlc2hhcnBlci5jb20iLCJhdWQiOiJodHRwczovL2dlbmVyaWNvaWRjLm9rdGFwcmV2aWV3LmNvbSIsInN1YiI6IjBvYXI5NXp0OXpJcFl1ejZBMGg3IiwiaWF0IjoxNTg4MTg1NDU3LCJleHAiOjE1ODgxODkwNTcsImNpZCI6IjBvYXI5NXp0OXpJcFl1ejZBMGg3Iiwic2NwIjpbIm9rdGEudXNlcnMubWFuYWdlIl19.TrrStbXUFtuH5TemMISgozR1xjT3rVaLHF8hqnwbe9gmFffVrLovY-JLl63G8vZVnyudvZ_fWkOBUxip1hcGm80KvrSgpdOp9Nazz-mjkP6T6JwslRFHDe8SC_4h2LG9zi5PV9y3hAayBK51q1HIwgAxl_2F7q4l0jLKDFsWjQS8epNaB05NLI12BDvO-C-7ZGGJ4EQfGS9EjN9lS-vWnt_V3ojTL0BJCKgL5Y0c9D2VkSqVN4j-7BSRZt0Un3MAEgznXmk2ecg3y7s9linGR0mC3QqKeyDfFNdsUJG6ac0h2CFFZQizpQu1DFmI_ADKmzxVQGPICuslgJFFoIF4ZA
+export MY_TOKEN
+```
+
+```bash
+curl http://localhost:3000/oidc/inspect \
+  -H "Authorization: Bearer ${MY_TOKEN}"
+```
+
+For an example of how to generate a valid token for testing see:
+
+- Okta:
+  [Get an access token](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/get-access-token/#make-a-request)
 
 # QuickStart
 
