@@ -132,17 +132,31 @@ You can download docker **without registering** at
 Build the _image_, and the _container_, and run it:
 
 ```bash
-docker image ls
-docker image rm node-docker-seed
 docker build -t node-docker-seed .
 
+docker container run --name my-app --env PORT=3080 -p 3000:3080 node-docker-seed
+```
+
+Management and cleaning up:
+
+```bash
+# remove the image
+docker image ls
+docker image rm node-docker-seed
+
+# remove the container
 docker container list
 docker container rm my-app
-docker container run --name my-app --env PORT=3080 -p 3000:3080 node-docker-seed
 ```
 
 Stop the container:
 
 ```bash
 docker container stop my-app
+```
+
+Or, for a stubborn container:
+
+```bash
+docker container kill my-app
 ```
