@@ -18,24 +18,40 @@ A 'Hello World'-style Dockerized Node App
 This is a sample node app with just a few endpoints for demonstration.
 
 ```txt
-GET /
+GET /api/public/hello
+=> { "message": "hello" }
 
-GET /hello
+GET /api/public/versions
+=> { "api": "0.1.0", "node": "16.9.1", "icu": "69.1", "tz": "2021a" }
 
-GET /envs
+# does not include secret values, just good values for sanity checking
+GET /api/public/envs
+=> { "NODE_ENV": "development", "CORS_DOMAINS": ["localhost"], ... }
 
-GET /oidc/config
+GET /api/public/oidc/config
+Auhorization: Bearer <token>
+=> { "userinfo_endpoint": "https://...", ... }
+
+GET /api/public/oidc/inspect
+Auhorization: Bearer <token>
+=> { "headers": { ... }, "claims": { ... } }
+
+GET /api/public/oidc/profile
+Auhorization: Bearer <token>
+=> { "given_name": "...", ... }
+
+# gives back 401 without valid token, or 404 with valid token
+GET /api/user/doesntexist
 Auhorization: Bearer <token>
 
-GET /oidc/inspect
-Auhorization: Bearer <token>
+GET /api/public/errors/400
+=> { "code": "BAD_REQUEST", "status": 400, "message": "..." }
 
-GET /oidc/profile
-Auhorization: Bearer <token>
+GET /api/public/errors/404
+=> (see above)
 
-GET /errors/400
-
-GET /errors/500
+GET /api/public/errors/500
+=> (see above)
 ```
 
 ## Example
@@ -46,7 +62,7 @@ export MY_TOKEN
 ```
 
 ```bash
-curl http://localhost:3000/oidc/inspect \
+curl http://localhost:3000/api/public/oidc/inspect \
   -H "Authorization: Bearer ${MY_TOKEN}"
 ```
 
