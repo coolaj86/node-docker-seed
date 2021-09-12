@@ -135,7 +135,11 @@ async function main() {
   console.info("PASS");
 }
 
-main().catch(function (err) {
-  console.error("FAIL:", err.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(function (err) {
+    console.error("FAIL:", err.message);
+    process.exit(1);
+  });
+} else {
+  module.exports = main;
+}
