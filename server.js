@@ -14,6 +14,9 @@ let express = require("express");
 
 let server = express();
 // all API is in app.js
+if ("development" === config.NODE_ENV) {
+  server.use("/", require("morgan")("tiny"));
+}
 server.get("/api", listEndpoints);
 server.use("/api", app);
 
