@@ -23,7 +23,7 @@ server.use("/api", app);
 // static server for dev assets
 server.use("/", express.static(path.join(__dirname, "build")));
 // Route all else to index.html for React's sake
-if (process.env.REACT_ROUTER) {
+if (config.REACT_ROUTER) {
   server.get("*", serveReactAppIndexHtml(__dirname + "/build/index.html"));
 }
 server.get("/", listEndpoints);
@@ -54,15 +54,15 @@ function serveReactAppIndexHtml(indexPath) {
 async function listEndpoints(req, res) {
   res.end(
     `GET /
-GET /public/hello
-GET /public/envs
-GET /public/versions
-GET /public/oidc/config
-GET /public/oidc/inspect
-GET /public/oidc/profile
-GET /public/errors/400
-GET /public/errors/404
-GET /public/errors/500
+GET /api/public/hello
+GET /api/public/envs
+GET /api/public/versions
+GET /api/public/oidc/config
+GET /api/public/oidc/inspect
+GET /api/public/oidc/profile
+GET /api/public/errors/400
+GET /api/public/errors/404
+GET /api/public/errors/500
 
 # requires authorized user
 GET /user/*
